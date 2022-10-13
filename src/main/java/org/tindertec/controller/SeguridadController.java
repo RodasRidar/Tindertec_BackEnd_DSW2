@@ -1,6 +1,7 @@
 package org.tindertec.controller;
 import org.tindertec.model.Usuario;
 import org.tindertec.repository.*;
+import org.tindertec.service.SeguridadService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,24 +30,16 @@ public class SeguridadController {
 	public static int CodUsuInSession;
 	
 	@Autowired	
-	private IUsuarioRepository repoUsua;
+	private SeguridadService serviceSeguridad;
 	
-	//Ejemplo de servicio web
-	@GetMapping
+	@PostMapping
 	@ResponseBody
-	public ResponseEntity<String> Login(
-			@RequestParam(name = "u", required = false, defaultValue = "") String correo,
-			@RequestParam(name = "c", required = false, defaultValue = "") String clave
-			) {
-		Usuario repo = repoUsua.findByEmailAndClave(correo, clave);
-		if (repo == null) {
-			return ResponseEntity.ok("Error");
-		}
-		else {
-			return ResponseEntity.ok("OK");
-		}
-		
+	public ResponseEntity<Usuario> LoginPost(@RequestBody Usuario user) {
+		return ResponseEntity.ok(serviceSeguridad.Login(user));
 	}
+
+
+
 	/*
 	@Transactional
 	

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UsuarioController {
-
+/*
 	@Autowired
 	ICarrerasRepository repoCar;
 	@Autowired
@@ -323,5 +323,5 @@ public class UsuarioController {
 		age = diffrence + "";
 
 		return age;
-	}
+	}*/
 }
