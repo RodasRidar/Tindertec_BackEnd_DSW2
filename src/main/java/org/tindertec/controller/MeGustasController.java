@@ -40,7 +40,7 @@ import java.util.Optional;
 ///
 @Controller
 public class MeGustasController {
-
+/*
 	@Autowired
 	IUsuarioRepository usuRepo;
 	@Autowired
@@ -101,5 +101,5 @@ public class MeGustasController {
 
 		return "MeGustas/MeGustas";
 	}
-	
+	*/
 }
