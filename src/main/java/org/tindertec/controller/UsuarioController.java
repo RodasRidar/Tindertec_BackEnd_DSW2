@@ -1,36 +1,41 @@
 package org.tindertec.controller;
 
+import org.tindertec.model.Match;
 import org.tindertec.model.Usuario;
 import org.tindertec.repository.*;
+import org.tindertec.service.ChatService;
+import org.tindertec.service.UsuarioService;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import javax.transaction.Transactional;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/rest/usuario")
 public class UsuarioController {
+	@Autowired	
+	private UsuarioService serviceUsuario;
+	
+	@GetMapping("/obtener")
+	@ResponseBody
+	public ResponseEntity<Optional<Usuario>> BuscarUsuario(
+			@RequestParam(name = "idUsuario", required = true) int idUser
+			) {
+		return ResponseEntity.ok(serviceUsuario.BuscarUsuario(idUser));
+	}
+
 /*
-	@Autowired
-	ICarrerasRepository repoCar;
-	@Autowired
-	ISedesRepository repoSed;
-	@Autowired
-	IGeneroUsuarioRepository repoGenusu;
-	@Autowired
-	IInteresGeneroRepository repoInte;
-	@Autowired
-	IUsuarioRepository repoUsu;
-
-//
-
 	@GetMapping("/Usuario/Registrar")
 	public String cargarregistrarUsuario(Model model, @ModelAttribute Usuario usuario) {
 
