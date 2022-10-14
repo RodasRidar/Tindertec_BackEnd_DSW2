@@ -1,6 +1,8 @@
 package org.tindertec.controller;
 
 import org.tindertec.model.Usuario;
+
+
 import org.tindertec.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +39,9 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-///
-@Controller
+
+@RestController
+@RequestMapping("/rest/megustas")
 public class MeGustasController {
 /*
 	@Autowired
