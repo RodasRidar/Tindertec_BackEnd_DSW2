@@ -26,4 +26,18 @@ public class UsuarioService {
 			return user;
 		}
 	}
+	
+	/**
+	 * @author Jorge
+	 */
+	
+	public Usuario listaBuscarAmistad(int userId){
+		Usuario lista = repoUsuario.listaBuscarAmistad(userId);
+		
+		if(lista==null) {
+			return null;
+		}else {
+			return lista;
+		}
+	}
 }

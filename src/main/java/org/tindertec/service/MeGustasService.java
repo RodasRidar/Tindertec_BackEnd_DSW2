@@ -12,6 +12,19 @@ public class MeGustasService {
 	@Autowired	
 	private ILikesRepository repoMeGustas;
 	
+	/**
+	 * @author Jorge
+	 */
+	
+	public String like(int CodUsuInSession,int CodUsuarioSeleccionado) {
+		String mensaje="";
+		mensaje = repoMeGustas.USP_INSERTAR_LIKE(CodUsuInSession, CodUsuarioSeleccionado);
+		if(mensaje!=null) {
+			return "MATCH";
+		}
+		return null;
+	}
+	
 
 
 }
