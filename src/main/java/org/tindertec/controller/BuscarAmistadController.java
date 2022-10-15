@@ -5,6 +5,9 @@ import org.tindertec.model.Match;
 import org.tindertec.model.Usuario;
 import org.tindertec.repository.*;
 import org.tindertec.service.ChatService;
+import org.tindertec.service.DisLikesService;
+import org.tindertec.service.MeGustasService;
+import org.tindertec.service.UsuarioService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +30,15 @@ public class BuscarAmistadController {
 
 	@Autowired	
 	private ChatService serviceChat;
+	
+	@Autowired
+	private UsuarioService serviceUsu;
+	
+	@Autowired
+	private DisLikesService serviceDisLike;
+	
+	@Autowired
+	private MeGustasService serviceMeGustas;
 	
 	
 	/**
@@ -67,117 +79,40 @@ public class BuscarAmistadController {
 	{
 		return ResponseEntity.ok(serviceChat.CancelarMatch(CodUsuInSession, cod_usu_menu));
 	}
+	
 	/**
 	 * @author Jorge
 	 */
-
-/*	
-
+		
 	@GetMapping("/Inicio")
-	public String cargarInicio(Model model) throws ParseException {
-		String nombresYedad = SeguridadController.nombresYedad;
-		String foto1 = SeguridadController.foto1;
-		int CodUsuInSession = SeguridadController.CodUsuInSession;
-		// enviarle el usuario que inicio sesion
-		int codigoValidacion = -1;
-		Usuario u = repoUsua.listaBuscarAmistad(CodUsuInSession);
-
-		if (u == null) {
-
-			model.addAttribute("codigoValidacion", codigoValidacion);
-		} else {
-			codigoValidacion = 1;
-			model.addAttribute("codigoValidacion", codigoValidacion);
-			model.addAttribute("nombreYedadBusAmi", u.getNombres() + " ," + obtenerEdad(u.getFecha_naci()));
-			model.addAttribute("fotoBusAmi", u.getFoto1());
-			model.addAttribute("codigoBusAmi", u.getCod_usu());
-			model.addAttribute("sedeBusAmi", u.getSede().getDes_sede());
-			model.addAttribute("carreraBusAmi", u.getCarrera().getDes_carrera());
-		}
-		model.addAttribute("nombresYedad", nombresYedad);
-		model.addAttribute("f1", foto1);
-
-		return "BuscarAmistad/BuscarAmistad";
-	}
-
-	@PostMapping("BuscarAmistad/Like")
-	public String like(@ModelAttribute Usuario usu, Model model) throws ParseException {
-		String nombresYedad = SeguridadController.nombresYedad;
-		String foto1 = SeguridadController.foto1;
-		int CodUsuInSession = SeguridadController.CodUsuInSession;
+	@ResponseBody
+	public ResponseEntity<Usuario> cargarInicio(
+			@RequestParam(name = "idUser", required = true) int userId
+			) {
+		return ResponseEntity.ok(serviceUsu.listaBuscarAmistad(userId));
 		
-		int codigoValidacion = -1;
+	}
+	
+	@PostMapping("/Like")
+	@ResponseBody
+	public ResponseEntity<String> like(
+			@RequestParam(name = "CodUsuInSession", required = true) int CodUsuInSession,
+			@RequestParam(name = "CodUsuarioSeleccionado",required = true) int CodUsuarioSeleccionado
+			){
 		
-		String mensaje ="";
-		 mensaje = repoLike.USP_INSERTAR_LIKE(CodUsuInSession, usu.getCod_usu());
-
-		if (mensaje != null) {
-			model.addAttribute("mensajeBuscarAmistad", 1);
-			codigoValidacion = 1;
-			Usuario user = new Usuario();
-			user=repoUsua.getOne(usu.getCod_usu());
-
-			model.addAttribute("codigoValidacion", codigoValidacion);
-			model.addAttribute("nombreYedadBusAmi", user.getNombres() + " ," + obtenerEdad(user.getFecha_naci()));
-			model.addAttribute("fotoBusAmi", user.getFoto1());
-			model.addAttribute("codigoBusAmi", user.getCod_usu());
-			model.addAttribute("sedeBusAmi",user.getSede().getDes_sede());
-			model.addAttribute("carreraBusAmi", user.getCarrera().getDes_carrera());
-			
-		}
-		else {
-			Usuario u = repoUsua.listaBuscarAmistad(CodUsuInSession);
-			if (u == null) {
-
-				model.addAttribute("codigoValidacion", codigoValidacion);
-			} else {
-				codigoValidacion = 1;
-				model.addAttribute("codigoValidacion", codigoValidacion);
-				model.addAttribute("nombreYedadBusAmi", u.getNombres() + " ," + obtenerEdad(u.getFecha_naci()));
-				model.addAttribute("fotoBusAmi", u.getFoto1());
-				model.addAttribute("codigoBusAmi", u.getCod_usu());
-				model.addAttribute("sedeBusAmi", u.getSede().getDes_sede());
-				model.addAttribute("carreraBusAmi", u.getCarrera().getDes_carrera());
-
-			}
-		}
-
-		// enviarle el usuario que inicio sesion
-
-		model.addAttribute("nombresYedad", nombresYedad);
-		model.addAttribute("f1", foto1);
-		return "BuscarAmistad/BuscarAmistad";
+		return ResponseEntity.ok(serviceMeGustas.like(CodUsuInSession, CodUsuarioSeleccionado));
+		
+	}
+	
+	@PostMapping("/DisLike")
+	@ResponseBody
+	public ResponseEntity<String> dislike(
+			@RequestParam(name = "CodUsuInSession", required = true) int CodUsuInSession,
+			@RequestParam(name = "CodUsuarioSeleccionado",required = true) int CodUsuarioSeleccionado
+			){
+		return ResponseEntity.ok(serviceDisLike.disLike(CodUsuInSession, CodUsuarioSeleccionado));
+		
+		
 	}
 
-	@PostMapping("/BuscarAmistad/disLike")
-	public String dislike(@ModelAttribute Usuario usu, Model model) throws ParseException {
-		String nombresYedad = SeguridadController.nombresYedad;
-		String foto1 = SeguridadController.foto1;
-		int CodUsuInSession = SeguridadController.CodUsuInSession;
-// hacer con @RequestParam , recuperar el parametro enviado por el formulario post
-		int codigoValidacion = -1;
-		repoDislike.USP_INSERTAR_DISLIKE(CodUsuInSession, usu.getCod_usu());
-
-		// CARD
-		Usuario u = repoUsua.listaBuscarAmistad(CodUsuInSession);
-		if (u == null) {
-
-			model.addAttribute("codigoValidacion", codigoValidacion);
-		} else {
-			codigoValidacion = 1;
-			model.addAttribute("codigoValidacion", codigoValidacion);
-			model.addAttribute("nombreYedadBusAmi", u.getNombres() + " ," + obtenerEdad(u.getFecha_naci()));
-			model.addAttribute("fotoBusAmi", u.getFoto1());
-			model.addAttribute("codigoBusAmi", u.getCod_usu());
-			model.addAttribute("sedeBusAmi", u.getSede().getDes_sede());
-			model.addAttribute("carreraBusAmi", u.getCarrera().getDes_carrera());
-		}
-
-		// enviarle el usuario que inicio sesion
-
-		model.addAttribute("nombresYedad", nombresYedad);
-		model.addAttribute("f1", foto1);
-		return "BuscarAmistad/BuscarAmistad";
-	}
-*/
 }
