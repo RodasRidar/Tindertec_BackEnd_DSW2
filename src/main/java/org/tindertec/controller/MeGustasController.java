@@ -1,8 +1,5 @@
 package org.tindertec.controller;
 
-import org.tindertec.model.Usuario;
-
-
 import org.tindertec.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,14 +16,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.tindertec.model.Usuario;
+import org.springframework.http.ResponseEntity;
 import org.tindertec.repository.IUsuarioRepository;
+import org.tindertec.service.DisLikesService;
+import org.tindertec.service.MeGustasService;
+import org.tindertec.service.UsuarioService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +37,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/rest/megustas")
 public class MeGustasController {
-/*
+
+	/*
 	@Autowired
 	IUsuarioRepository usuRepo;
 	@Autowired
@@ -105,4 +100,33 @@ public class MeGustasController {
 		return "MeGustas/MeGustas";
 	}
 	*/
+	/*	Autor: Hansel	*/
+	
+	@Autowired
+	private DisLikesService serviceDisLike;
+	
+	@Autowired
+	private MeGustasService serviceMegusta;
+	
+	
+	@GetMapping("/MeGustas")
+	public ResponseEntity<List<Usuario>> cargarLikes(
+			@RequestParam(name = "idUser", required = true) int userId
+			) {
+		return ResponseEntity.ok(serviceMegusta.listarLikesXUser(userId));
+		
+	}
+	
+	@PostMapping("/EliminarLike")
+	@ResponseBody
+	public ResponseEntity<String> dislike(
+			@RequestParam(name = "CodUsuInSession", required = true) int CodUsuInSession,
+			@RequestParam(name = "CodUsuarioSeleccionado",required = true) int CodUsuarioSeleccionado
+			){
+		return ResponseEntity.ok(serviceDisLike.disLike(CodUsuInSession, CodUsuarioSeleccionado));
+		
+		
+	}
+	
+	
 }
