@@ -30,8 +30,10 @@ public class MeGustasService {
 		}
 		return null;
 	}
+	/**
+	 * @author Hansel
+	 */
 	
-	/* Autor: Hansel */
 	public List<Usuario> listarLikesXUser(int userId) {
 		List<Usuario> likes;
 		likes = repoUsuario.USP_Listar_Usuarios_Likes(userId);
