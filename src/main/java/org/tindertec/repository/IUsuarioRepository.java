@@ -38,10 +38,10 @@ public interface IUsuarioRepository extends JpaRepository <Usuario, Integer>{
 			@Param("correo")String email,
 			@Param("fecnac")String fecha_naci,
 			@Param("clave")String clave,
-			@Param("idsede")int idsede,
-			@Param("idcarrera")int idcarrera,
-			@Param("idgenero")int idgenero,
-			@Param("idinteres")int idinteres,
+			@Param("idsede")Integer idsede,
+			@Param("idcarrera")Integer idcarrera,
+			@Param("idgenero")Integer idgenero,
+			@Param("idinteres")Integer idinteres,
 			@Param("descripcion")String descripcion,
 			@Param("f1")String f1
 			);

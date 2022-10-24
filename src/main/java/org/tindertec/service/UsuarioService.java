@@ -13,8 +13,22 @@ public class UsuarioService {
 	
 	@Autowired	
 	private IUsuarioRepository repoUsuario;
-
 	
+	@Autowired
+	private ICarrerasRepository repoCarrera;
+	
+	@Autowired
+	private IGeneroUsuarioRepository repoGenero;
+
+	@Autowired
+	private IInteresGeneroRepository repoInteres;
+	
+	@Autowired
+	private ISedesRepository repoSede;
+	
+	/**
+	 * @author Richard
+	 */
 	public Optional<Usuario>  BuscarUsuario(int userId) {
 
 		Optional<Usuario> user=repoUsuario.findById(userId);
@@ -27,6 +41,45 @@ public class UsuarioService {
 		}
 	}
 	
+	/**
+	 * @author Eduardo
+	 */
+	
+	//Listado de Carreras
+	public List<Carreras> listadoCarreras(){
+		return repoCarrera.findAll();
+	}
+	
+	//Listado de Sedes
+	public List<Sedes> listadoSedes(){
+		return repoSede.findAll();
+	}
+	
+	//Listado de Interes del Usuario
+	public List<InteresGenero> listadoIntereses(){
+		return repoInteres.findAll();
+	}
+	
+	//Listado de Genero
+	public List<GeneroUsuario> listadoGeneros(){
+		return repoGenero.findAll();
+	}
+	
+	//REGISTRO DEL USUARIO:
+	public void registrarUsuario(Usuario usuario) {
+		repoUsuario.USP_USUARIO_REGISTRAR(
+				usuario.getNombres(), 
+				usuario.getEmail(),
+				usuario.getFecha_naci(),
+				usuario.getClave(),
+				usuario.getCod_sede(),
+				usuario.getCod_carrera(),
+				usuario.getCod_genero(),
+				usuario.getCod_interes(),
+				usuario.getDescripcion(),
+				usuario.getFoto1());
+	}
+
 	/**
 	 * @author Jorge
 	 */
