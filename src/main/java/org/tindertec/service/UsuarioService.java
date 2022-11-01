@@ -93,4 +93,17 @@ public class UsuarioService {
 			return lista;
 		}
 	}
+	
+	/**
+	 * @author Pierina Lopez
+	 */
+	
+	public void editaPerfil(int usu, String nom, String info, int interes, int carrera, int sede) {
+		repoUsuario.USP_EDITAR_PERFIL(usu, nom, info, interes, carrera, sede);
+	}
+	
+	public void agregaFoto(int usu, int posicion, String url) {
+		repoUsuario.USP_USUARIO_INSERTAR_FOTO(usu, posicion, url);
+	}
+	
 }
