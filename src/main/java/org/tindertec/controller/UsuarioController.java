@@ -111,22 +111,8 @@ public class UsuarioController {
 	 */
 	@PostMapping("/editar")
 	@ResponseBody
-	public ResponseEntity<?> actualizarPerfil
-		   (@RequestParam(name="CodUsuInSession", required=true) int CodUsuInSession,
-			@RequestParam(name="nombres", required=true) String nombres,
-			@RequestParam(name="descripcion", required=true) String descripcion,
-			@RequestParam(name="cod_interes_sp", required=true) int interes,
-			@RequestParam(name="cod_carrera_sp", required=true) int carrera,
-			@RequestParam(name="cod_sede_sp", required=true) int sede				
-			){
-		try {
-			serviceUsuario.editaPerfil(CodUsuInSession, nombres, descripcion, interes, carrera, sede);
-			ResponseEntity.ok("Perfil actualizado");
-		} catch (Exception e) {
-			e.printStackTrace();
-			ResponseEntity.badRequest();
-		}
-		return ResponseEntity.ok("Método editar perfil terminó");
+	public ResponseEntity<?> actualizarPerfil(@RequestBody Usuario u){
+			return ResponseEntity.ok(serviceUsuario.editaPerfil(u));
 	}
 	
 	@PostMapping("/agregarFoto")
