@@ -105,7 +105,7 @@ public class UsuarioService {
 					u.getCod_usu(),
 					u.getNombres(),
 					u.getDescripcion(),
-					u.getCod_carrera(),
+					u.getCod_interes(),
 					u.getCod_carrera(),
 					u.getCod_sede());
 			msj = "Cambios guardados exitosamente.";
