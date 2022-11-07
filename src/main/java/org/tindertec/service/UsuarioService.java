@@ -93,4 +93,38 @@ public class UsuarioService {
 			return lista;
 		}
 	}
+	
+	/**
+	 * @author Pierina Lopez
+	 */
+	
+	public String editaPerfil(Usuario u) {
+		String msj = "";
+		try {
+			repoUsuario.USP_EDITAR_PERFIL(
+					u.getCod_usu(),
+					u.getNombres(),
+					u.getDescripcion(),
+					u.getCod_carrera(),
+					u.getCod_carrera(),
+					u.getCod_sede());
+			msj = "Cambios guardados exitosamente.";
+		} catch (Exception e) {
+			//msj = "Error al guardar cambios.";
+			msj = e.getMessage();
+		}
+		return msj;
+	}
+	
+	public String agregaFoto(int usu, int posicion, String url) {
+		String msj = "";
+		try {
+			repoUsuario.USP_USUARIO_INSERTAR_FOTO(usu, posicion, url);
+			msj = "Cambios guardados exitosamente.";
+		} catch (Exception e) {
+			//msj = "Error al guardar cambios.";
+			msj = e.getMessage();
+		}
+		return msj;
+	}
 }
