@@ -127,4 +127,15 @@ public class UsuarioService {
 		}
 		return msj;
 	}
+	public String eliminarUsuario(int usu) {
+		String msj = "";
+		try {
+			repoUsuario.USP_USUARIO_ELIMINAR(usu);
+			msj = "Usuario Eliminado exitosamente";
+		} catch (Exception e) {
+			//msj = "Error al guardar cambios.";
+			msj = e.getMessage();
+		}
+		return msj;
+	}
 }

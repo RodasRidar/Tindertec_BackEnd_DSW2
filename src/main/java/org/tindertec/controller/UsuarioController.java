@@ -130,33 +130,13 @@ public class UsuarioController {
 		}
 		return ResponseEntity.ok("Método agregar foto terminó");
 	}
-	
+	@PostMapping("/eliminar")
+	@ResponseBody
+	public ResponseEntity<?> eliminarUsuario(@RequestBody Usuario u){
+		return ResponseEntity.ok(serviceUsuario.eliminarUsuario(u.getCod_usu()));
+	}
 /*
 
-
-	@PostMapping("/Perfil/Guardar")
-	public String guardarUsuario(Model model, @ModelAttribute Usuario usuario) {
-
-		
-		try {
-			repoUsu.USP_EDITAR_PERFIL(CodUsuInSession, usuario.getNombres(), usuario.getDescripcion(),
-					usuario.getCod_interes(), usuario.getCod_carrera(), usuario.getCod_sede());
-	
-	}
-
-	@PostMapping("/Perfil/AgregarFoto")
-	public String agregarFoto(@ModelAttribute Usuario usuario, Model model,
-			@RequestParam(name = "url_foto", required = true) String url_foto) {
-
-
-		try {
-
-			repoUsu.USP_USUARIO_INSERTAR_FOTO(CodUsuInSession, fotoPosicion, url_foto);
-			model.addAttribute("msjConfirmacionAddFoto", "¡Foto agregada exitosamente!");
-
-			
-	}
-	
 	@PostMapping("/Perfil/eliminar")
 	public String eliminarUsuario(@ModelAttribute Usuario usuario, Model model) {
 		int CodUsuInSession = SeguridadController.CodUsuInSession;

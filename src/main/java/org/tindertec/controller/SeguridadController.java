@@ -38,6 +38,11 @@ public class SeguridadController {
 		return ResponseEntity.ok(serviceSeguridad.Login(user));
 	}
 
+	@PostMapping("/verificar")
+	@ResponseBody
+	public ResponseEntity<String> VerificarPost(@RequestBody Usuario user) {
+		return ResponseEntity.ok(serviceSeguridad.VerificarCredenciales(user));
+	}
 
 
 	/*

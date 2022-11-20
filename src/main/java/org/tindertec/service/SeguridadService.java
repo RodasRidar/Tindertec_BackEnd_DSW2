@@ -12,14 +12,19 @@ public class SeguridadService {
 	private IUsuarioRepository repoUsua;
 	
 	public Usuario Login(Usuario user) {
+		
 		Usuario repo = repoUsua.findByEmailAndClave(user.getEmail(),user.getClave());
 		if (repo == null) {
 			return null;
 		}
 		else {
-			
 			return repo;
 		}
 	}
-
+	public String VerificarCredenciales(Usuario user) {
+		
+		String msj=repoUsua.usp_usuario_acceso(user.getEmail(),user.getClave());
+		return msj;
+		
+	}
 }
