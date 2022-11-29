@@ -64,7 +64,7 @@ public class UsuarioService {
 	public List<GeneroUsuario> listadoGeneros(){
 		return repoGenero.findAll();
 	}
-	
+
 	//REGISTRO DEL USUARIO:
 	public void registrarUsuario(Usuario usuario) {
 		repoUsuario.USP_USUARIO_REGISTRAR(
@@ -93,11 +93,9 @@ public class UsuarioService {
 			return lista;
 		}
 	}
-	
 	/**
 	 * @author Pierina Lopez
 	 */
-	
 	public String editaPerfil(Usuario u) {
 		String msj = "";
 		try {
