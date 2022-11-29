@@ -23,6 +23,7 @@ public interface IUsuarioRepository extends JpaRepository <Usuario, Integer>{
 
 	Usuario findByEmailAndClave(String email, String clave);
 	
+	Usuario findByEmail(String email);
 	
 	@Procedure(procedureName = "usp_usuario_acceso")
 	String usp_usuario_acceso(
