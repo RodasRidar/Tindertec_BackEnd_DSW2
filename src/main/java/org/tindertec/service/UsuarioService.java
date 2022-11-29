@@ -64,7 +64,7 @@ public class UsuarioService {
 	public List<GeneroUsuario> listadoGeneros(){
 		return repoGenero.findAll();
 	}
-	
+
 	//REGISTRO DEL USUARIO:
 	public void registrarUsuario(Usuario usuario) {
 		repoUsuario.USP_USUARIO_REGISTRAR(
@@ -93,6 +93,47 @@ public class UsuarioService {
 			return lista;
 		}
 	}
+	/**
+	 * @author Pierina Lopez
+	 */
+	public String editaPerfil(Usuario u) {
+		String msj = "";
+		try {
+			repoUsuario.USP_EDITAR_PERFIL(
+					u.getCod_usu(),
+					u.getNombres(),
+					u.getDescripcion(),
+					u.getCod_interes(),
+					u.getCod_carrera(),
+					u.getCod_sede());
+			msj = "Cambios guardados exitosamente.";
+		} catch (Exception e) {
+			//msj = "Error al guardar cambios.";
+			msj = e.getMessage();
+		}
+		return msj;
+	}
 	
-	
+	public String agregaFoto(int usu, int posicion, String url) {
+		String msj = "";
+		try {
+			repoUsuario.USP_USUARIO_INSERTAR_FOTO(usu, posicion, url);
+			msj = "Cambios guardados exitosamente.";
+		} catch (Exception e) {
+			//msj = "Error al guardar cambios.";
+			msj = e.getMessage();
+		}
+		return msj;
+	}
+	public String eliminarUsuario(int usu) {
+		String msj = "";
+		try {
+			repoUsuario.USP_USUARIO_ELIMINAR(usu);
+			msj = "Usuario Eliminado exitosamente";
+		} catch (Exception e) {
+			//msj = "Error al guardar cambios.";
+			msj = e.getMessage();
+		}
+		return msj;
+	}
 }

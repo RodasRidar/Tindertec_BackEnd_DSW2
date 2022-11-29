@@ -25,5 +25,19 @@ public class DisLikesService {
 		
 		return mensaje;
 	}
+	/**
+	 * @author Hansel
+	 */
 
+	public String EliminarLike(int CodUsuInSession,int CodUsuarioSeleccionado) {
+		String mensaje="";
+		try {
+			repoDisLike.USP_ELIMINAR_LIKE(CodUsuInSession, CodUsuarioSeleccionado);
+			mensaje="ok";
+		} catch (Exception e) {
+			mensaje=e.toString();
+		}
+		
+		return mensaje;
+	}
 }

@@ -19,4 +19,6 @@ public interface IDislikesRepository extends JpaRepository <Dislikes, Integer>{
 
 	@Procedure(procedureName = "USP_ELIMINAR_LIKE")
 	void USP_ELIMINAR_LIKE(@Param("cod_usu_sp") int cod_usu ,@Param("cod_usu_2_sp") int cod_usu_dislike );
+	
+	
 }
