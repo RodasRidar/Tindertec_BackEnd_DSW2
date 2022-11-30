@@ -477,6 +477,8 @@ delete from tb_dislike where cod_usu_dislike=codigo_usuario;
 
 delete from tb_usuario where cod_usu=codigo_usuario;
 
+delete from usuario_rol where usuario_id=codigo_usuario;
+
 END$$
 DELIMITER ;
 /*
