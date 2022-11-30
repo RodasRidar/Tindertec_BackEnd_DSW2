@@ -105,6 +105,10 @@ public class AuthController {
 	            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
 	        
 	    	usuario.setRoles(roles);
+	    	usuario.setFoto2("");
+	    	usuario.setFoto3("");
+	    	usuario.setFoto4("");
+	    	usuario.setFoto5("");
 	        usuarioService.save(usuario);
 	        
 	        lstMensajes.add("¡Bienvenido a Tindertec! " + nuevoUsuario.getNombres());

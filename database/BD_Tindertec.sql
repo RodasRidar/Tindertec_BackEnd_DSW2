@@ -35,21 +35,30 @@ primary key (cod_genero)
 );
 
 
+/**/drop table if exists tb_rol;
+create table tb_rol(
+id int auto_increment primary key,
+rol_nombre varchar(20)
+);
+
+
+
+
 drop table if exists tb_usuario;
 create table tb_usuario
 (
 cod_usu int auto_increment,
 nombres varchar(60),
 email varchar(50),
-clave varchar(15),
+clave varchar(200),
 foto1 varchar(800),
-foto2 varchar(800),
-foto3 varchar(800),
-foto4 varchar(800),
-foto5 varchar(800),
+foto2 varchar(800) default '',
+foto3 varchar(800) default '',
+foto4 varchar(800) default '',
+foto5 varchar(800) default '',
 fecha_naci date,
 descripcion varchar(350),
-intentos int,
+intentos int default 0,
 fecha_bloqueo datetime,
 cod_carrera int,
 cod_sede int,
@@ -61,6 +70,14 @@ constraint fk_carrera foreign key (cod_carrera) references tb_carreras(cod_carre
 constraint fk_sede foreign key (cod_sede) references tb_sedes_usu(cod_sede),
 constraint fk_interes foreign key (cod_interes) references tb_interes_genero(cod_interes),
 constraint fk_genero_usu foreign key (cod_genero) references tb_genero_usu(cod_genero)
+);
+
+drop table if exists usuario_rol;
+create table usuario_rol(
+usuario_id int auto_increment primary key,
+rol_id int,
+constraint fk_rol_id foreign key (rol_id) references tb_rol(id),
+constraint fk_usuario_id foreign key (usuario_id) references tb_usuario(cod_usu)
 );
 
 drop table if exists tb_match;
